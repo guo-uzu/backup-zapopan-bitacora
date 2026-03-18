@@ -111,7 +111,7 @@ func main() {
 	// Prints the names and majors of students in a sample spreadsheet:
 	// https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
 	spreadsheetId := "1JHzuHqSx8eAmq77rcaPgfJLlTwVt9juzr1owtqvHlj0"
-	readRange := "12-17 feb"
+	readRange := "21 a 27 de septiembre"
 	resp, err := srv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
 	if err != nil {
 		log.Fatalf("Unable to retrieve data from sheet: %v", err)
@@ -130,7 +130,7 @@ func main() {
 
 			// skip header row if needed
 			first := strings.TrimSpace(fmt.Sprint(row[0]))
-			if first == "Cuenta" || first == "ACCOUNT" || first == "" {
+			if first == "Cuenta" || first == "ACCOUNT" || first == "Responsable" || first == "Nombre" {
 				continue
 			}
 
@@ -196,7 +196,7 @@ func main() {
 				creatredByName = userName
 			}
 			valueRow := fmt.Sprintf(
-				"(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+				"(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 				formatDate(createdAt),            // created_at
 				sqlIntPtr(areaID),                // area_id
 				sqlIntPtr(categoryID),            // category_id
