@@ -111,7 +111,7 @@ func main() {
 	// Prints the names and majors of students in a sample spreadsheet:
 	// https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
 	spreadsheetId := "1JHzuHqSx8eAmq77rcaPgfJLlTwVt9juzr1owtqvHlj0"
-	readRange := "21 a 27 de septiembre"
+	readRange := "06-11 feb"
 	resp, err := srv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
 	if err != nil {
 		log.Fatalf("Unable to retrieve data from sheet: %v", err)
@@ -142,36 +142,36 @@ func main() {
 			}
 
 			// Cells without UserID
+			accountText := getCell(0)
+			socialNetworkText := getCell(1)
+			channelText := getCell(2)
+			username := getCell(3)
+			createdAt := getCell(4)
+			categoryText := getCell(5)
+			description := getCell(6)
+			areaText := getCell(7)
+			colonia := getCell(8)
+			priorityText := getCell(9)
+			statusText := getCell(10)
+			folio := getCell(11)
+			observations := getCell(12)
 			/*
-				accountText := getCell(0)
-				socialNetworkText := getCell(1)
-				channelText := getCell(2)
-				username := getCell(3)
-				createdAt := getCell(4)
-				categoryText := getCell(5)
-				description := getCell(6)
-				areaText := getCell(7)
-				colonia := getCell(8)
-				priorityText := getCell(9)
-				statusText := getCell(10)
-				folio := getCell(11)
-				observations := getCell(12)
+				userName := getCell(0)
+				accountText := getCell(1)
+				socialNetworkText := getCell(2)
+				channelText := getCell(3)
+				username := getCell(4)
+				link := getCell(5)
+				createdAt := getCell(6)
+				categoryText := getCell(7)
+				description := getCell(8)
+				areaText := getCell(9)
+				colonia := getCell(10)
+				priorityText := getCell(11)
+				statusText := getCell(12)
+				folio := getCell(13)
+				observations := getCell(14)
 			*/
-			userName := getCell(0)
-			accountText := getCell(1)
-			socialNetworkText := getCell(2)
-			channelText := getCell(3)
-			username := getCell(4)
-			link := getCell(5)
-			createdAt := getCell(6)
-			categoryText := getCell(7)
-			description := getCell(8)
-			areaText := getCell(9)
-			colonia := getCell(10)
-			priorityText := getCell(11)
-			statusText := getCell(12)
-			folio := getCell(13)
-			observations := getCell(14)
 			// normalize only if your maps use normalized keys
 			accountKey := formatLowerDash(accountText)
 			socialNetworkKey := formatLowerDash(socialNetworkText)
@@ -180,7 +180,7 @@ func main() {
 			areaKey := formatLowerDash(areaText)
 			priorityKey := formatLowerDash(priorityText)
 			statusKey := formatLowerDash(statusText)
-			userId := MapOptionalUserID(userIdMap, userName)
+			// userId := MapOptionalUserID(userIdMap, userName)
 			accountID := MapOptional(accountMap, accountKey)
 			socialNetworkID := MapOptional(socialNetworkMap, socialNetworkKey)
 			channelID := MapOptional(channelMap, channelKey)
@@ -189,12 +189,12 @@ func main() {
 			priorityID := MapOptional(priorityMap, priorityKey)
 			statusID := MapOptional(statusMap, statusKey)
 			// fields not coming from sheet yet
-			// link := ""
+			link := "NULL"
 			available := true
-			// userID := "NULL"
-			if userId == "" {
-				creatredByName = userName
-			}
+			userID := "NULL"
+			// if userId == "" {
+			// 	creatredByName = userName
+			// }
 			valueRow := fmt.Sprintf(
 				"(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 				formatDate(createdAt),            // created_at
@@ -203,7 +203,7 @@ func main() {
 				sqlIntPtr(channelID),             // channel_id
 				sqlString(description),           // description
 				sqlString(folio),                 // folio
-				sqlString(link),                  // link
+				link,                             // link
 				sqlString(observations),          // observations
 				sqlIntPtr(priorityID),            // priority_id
 				sqlIntPtr(statusID),              // status_id
@@ -211,7 +211,7 @@ func main() {
 				sqlString(colonia),               // colonia
 				sqlIntPtr(socialNetworkID),       // social_network_id
 				sqlBool(available),               // available
-				sqlStrigsPointer(userId),         // user_id
+				userID,                           // user_id
 				sqlIntPtr(accountID),             // account_id
 				sqlStrigsPointer(creatredByName), // created_by_name
 				formatDate(createdAt),            // updated_at is the same as created_at (initially)
