@@ -111,7 +111,7 @@ func main() {
 	// Prints the names and majors of students in a sample spreadsheet:
 	// https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
 	spreadsheetId := "1JHzuHqSx8eAmq77rcaPgfJLlTwVt9juzr1owtqvHlj0"
-	readRange := "21 a 27 de septiembre"
+	readRange := " 24- 30 de mayo"
 	resp, err := srv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
 	if err != nil {
 		log.Fatalf("Unable to retrieve data from sheet: %v", err)
@@ -301,10 +301,12 @@ func MapOptional(dict map[string]int, key string) *int {
 }
 
 var userIdMap = map[string]string{
-	"Sayra":  "03f6bcc8-9ad3-490f-95d7-3fbbc30ef720",
-	"Naeli":  "a255cc89-f9de-46df-a67c-5c9fab8ba29e",
-	"Declan": "05b3eb0c-302c-4fe6-8eff-3c9ea4d0a27f",
-	"Zamah":  "e7ed810b-f2d6-4a0d-96d5-6db55a950668",
+	"Sayra":   "03f6bcc8-9ad3-490f-95d7-3fbbc30ef720",
+	"Naeli":   "a255cc89-f9de-46df-a67c-5c9fab8ba29e",
+	"Declan":  "05b3eb0c-302c-4fe6-8eff-3c9ea4d0a27f",
+	"Zamah":   "e7ed810b-f2d6-4a0d-96d5-6db55a950668",
+	"Diana":   "649c958e-48a4-48a1-be12-8a7cd1e0b7f2",
+	"Daniela": "0dc00cbd-c902-46de-bdab-f6028f4ecefb",
 }
 
 var accountMap = map[string]int{
